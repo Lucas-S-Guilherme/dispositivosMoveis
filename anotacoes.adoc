@@ -1,0 +1,40 @@
+= Anotações Aulas Dispositivos móveis
+
+== Aula 18/10/24
+
+Requisitos:
+
+Node.
+Android Studio.
+expo: npm install -g expo-cli
+
+Para iniciar o Android Studio, abra um terminal, navegue até o diretório android-studio/bin/ e execute studio.sh.
+
+Para iniciar um projeto React Native com expo: npx expo-create-app nomeDoProjeto
+
+Para iniciar um projeto em branco: expo init nomeDoProjeto
+
+Após criar o projeto:
+To run your project, navigate to the directory and run one of the following npm commands.
+
+- cd meuApp
+- npm start # you can open iOS, Android, or web from here, or run them directly with the commands below.
+- npm run android
+- npm run ios # requires an iOS device or macOS for access to an iOS simulator
+- npm run web
+
+=== Dicas .json
+
+package.json: Todo json é uma chave com atributos e valores. Não subir "devDependencies"
+
+packge-lock.json: não pode ser manipulado pelo usuário, teoricamente.
+
+"start": "expo start"
+
+link: https://docs.expo.dev/get-started/create-a-project/
+
+
+
+
+
+
