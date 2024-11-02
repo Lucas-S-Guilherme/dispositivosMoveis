@@ -15,13 +15,12 @@ Para iniciar um projeto React Native com expo: npx expo-create-app nomeDoProjeto
 Para iniciar um projeto em branco: expo init nomeDoProjeto
 
 Após criar o projeto:
-To run your project, navigate to the directory and run one of the following npm commands.
-
+Vá para o diretório do projeto 
 - cd meuApp
-- npm start # you can open iOS, Android, or web from here, or run them directly with the commands below.
-- npm run android
-- npm run ios # requires an iOS device or macOS for access to an iOS simulator
-- npm run web
+Dê o comando 
+- npm start 
+selecione a opção a para android
+Aperta r para recarregar o código
 
 === Dicas .json
 
@@ -33,6 +32,9 @@ packge-lock.json: não pode ser manipulado pelo usuário, teoricamente.
 
 link: https://docs.expo.dev/get-started/create-a-project/
 
+== aula 25/10/24
+
+npm install axios
 
 
 
