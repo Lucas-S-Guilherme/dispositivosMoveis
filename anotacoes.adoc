@@ -36,6 +36,8 @@ link: https://docs.expo.dev/get-started/create-a-project/
 
 npm install axios
 
+== aula 01/11/24
+
 
 
 
