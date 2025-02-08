@@ -9,8 +9,7 @@ export default function App() {
     <View style={styles.container}>
       <Text>Formulário de Cadastro e Validação</Text>
       <StatusBar style="auto" />
-      <SignUpForm></SignUpForm>
-      
+      <SignUpForm></SignUpForm>      
     </View>
   );
 }
