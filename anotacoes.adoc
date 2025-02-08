@@ -12,13 +12,13 @@ Para iniciar o Android Studio, abra um terminal, navegue até o diretório andro
 
 Para iniciar um projeto React Native com expo: npx expo-create-app nomeDoProjeto
 
-Para iniciar um projeto em branco: expo init nomeDoProjeto
+Para iniciar um projeto em branco:expo init 
 
 Após criar o projeto:
 Vá para o diretório do projeto 
 - cd meuApp
 Dê o comando 
-- npm start 
+- npx  expo start 
 selecione a opção a para android
 Aperta r para recarregar o código
 
@@ -37,6 +37,8 @@ link: https://docs.expo.dev/get-started/create-a-project/
 npm install axios
 
 == aula 01/11/24
+
+== aula 07/02/25
 
 
 
