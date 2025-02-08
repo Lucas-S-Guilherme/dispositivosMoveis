@@ -67,6 +67,27 @@ const SignUpForm = () => {
     }
     setCpfError('');
     return true;
+
+        // cpf = cpf.replace (/[^\d]+/g, '');
+        // if (cpf.lenght !== 11) {
+        //     return false;
+        // } 
+        // if (/^(\d)\1+$/.test(cpf)) return false;
+        // let sum = 0, remainder;
+        // for (let i = 1; i <= 9; i++) {
+        //     sum += parseInt(cpf.substring(i-1, i)) * (11 - i);
+        // }
+        // remainder = (sum * 10) % 11;
+        // remainder = (remainder === 10 || remainder === 11) ? 0 : remainder;
+        // if (remainder !== parseInt(cpf.substring(9,10))) return false;
+        // sum = 0;
+        // for (let i = 1; i <= 10; i++) {
+        //     sum += parseInt(cpf.substring(i-1, i)) * (12 - i);
+        // }
+        // remainder = (sum * 10) % 11;
+        // remainder = (remainder === 10 || remainder === 11) ? 0 : remainder;
+        // return remainder === parseInt(cpf.substring(10, 11));
+
   };
 
   // Função para validar o telefone fixo
