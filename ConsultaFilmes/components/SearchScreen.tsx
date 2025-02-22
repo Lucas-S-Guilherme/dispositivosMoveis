@@ -9,9 +9,11 @@ import {
   TouchableOpacity,
   Text,
   ActivityIndicator,
+  Dimensions,
 } from 'react-native';
 import axios from 'axios';
 import { StackNavigationProp } from '@react-navigation/stack';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 // 🔹 Definir o tipo do filme baseado na resposta da API do TMDB
 type Movie = {
@@ -33,6 +35,8 @@ type SearchScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Searc
 type Props = {
   navigation: SearchScreenNavigationProp;
 };
+
+const { width } = Dimensions.get('window');
 
 const SearchScreen: React.FC<Props> = ({ navigation }) => {
   const [query, setQuery] = useState('');
@@ -105,6 +109,7 @@ const SearchScreen: React.FC<Props> = ({ navigation }) => {
           {item.overview}
         </Text>
       </View>
+      <Icon name="chevron-right" size={24} color="#666" />
     </TouchableOpacity>
   );
 
@@ -117,13 +122,15 @@ const SearchScreen: React.FC<Props> = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <TextInput
-        style={styles.input}
-        placeholder="Digite o nome do filme"
-        value={query}
-        onChangeText={setQuery}
-      />
-      <Button title="Buscar" onPress={() => searchMovies(1)} />
+      <View style={styles.searchContainer}>
+        <TextInput
+          style={styles.input}
+          placeholder="Digite o nome do filme"
+          value={query}
+          onChangeText={setQuery}
+        />
+        <Button title="Buscar" onPress={() => searchMovies(1)} />
+      </View>
 
       {error ? (
         <Text style={styles.errorText}>{error}</Text>
@@ -147,21 +154,39 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
+    backgroundColor: '#f5f5f5',
+  },
+  searchContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 16,
   },
   input: {
+    flex: 1,
     height: 40,
-    borderColor: 'gray',
+    borderColor: '#ccc',
     borderWidth: 1,
-    marginBottom: 16,
+    borderRadius: 8,
     paddingHorizontal: 8,
+    marginRight: 8,
+    backgroundColor: '#fff',
   },
   movieItem: {
     flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    borderRadius: 8,
+    padding: 16,
     marginBottom: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2,
   },
   poster: {
-    width: 100,
-    height: 150,
+    width: 80,
+    height: 120,
     borderRadius: 8,
   },
   movieInfo: {

@@ -6,10 +6,12 @@ import {
   StyleSheet,
   ActivityIndicator,
   ScrollView,
+  Dimensions,
 } from 'react-native';
 import axios from 'axios';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 // 🔹 Definição dos tipos para a navegação
 type RootStackParamList = {
@@ -33,6 +35,8 @@ type MovieDetails = {
   genres?: { id: number; name: string }[];
   runtime?: number;
 };
+
+const { width } = Dimensions.get('window');
 
 const DetailsScreen: React.FC<Props> = ({ route }) => {
   const { movieId } = route.params;
@@ -104,6 +108,7 @@ const DetailsScreen: React.FC<Props> = ({ route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#f5f5f5',
   },
   backdrop: {
     width: '100%',
