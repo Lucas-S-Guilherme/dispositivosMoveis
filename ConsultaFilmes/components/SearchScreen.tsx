@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   TextInput,
@@ -39,8 +39,10 @@ const SearchScreen: React.FC<Props> = ({ navigation }) => {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
-  const searchMovies = async () => {
+  const searchMovies = async (pageNumber: number = 1) => {
     if (!query) {
       setError('Por favor, insira um termo de busca.');
       return;
@@ -50,16 +52,22 @@ const SearchScreen: React.FC<Props> = ({ navigation }) => {
     setError(null);
 
     try {
-      const response = await axios.get<{ results: Movie[] }>(
+      const response = await axios.get<{ results: Movie[]; total_pages: number }>(
         `https://api.themoviedb.org/3/search/movie`,
         {
           params: {
             api_key: process.env.EXPO_PUBLIC_TMDB_API_KEY,
             query: query,
+            page: pageNumber,
           },
         }
       );
-      setMovies(response.data.results);
+      if (pageNumber === 1) {
+        setMovies(response.data.results);
+      } else {
+        setMovies((prevMovies) => [...prevMovies, ...response.data.results]);
+      }
+      setTotalPages(response.data.total_pages);
       if (response.data.results.length === 0) {
         setError('Nenhum filme encontrado.');
       }
@@ -68,6 +76,14 @@ const SearchScreen: React.FC<Props> = ({ navigation }) => {
       setError('Ocorreu um erro ao buscar os filmes.');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleLoadMore = () => {
+    if (page < totalPages) {
+      const nextPage = page + 1;
+      setPage(nextPage);
+      searchMovies(nextPage);
     }
   };
 
@@ -92,6 +108,13 @@ const SearchScreen: React.FC<Props> = ({ navigation }) => {
     </TouchableOpacity>
   );
 
+  const renderFooter = () => {
+    if (loading) {
+      return <ActivityIndicator size="large" color="#0000ff" style={styles.loader} />;
+    }
+    return null;
+  };
+
   return (
     <View style={styles.container}>
       <TextInput
@@ -100,17 +123,18 @@ const SearchScreen: React.FC<Props> = ({ navigation }) => {
         value={query}
         onChangeText={setQuery}
       />
-      <Button title="Buscar" onPress={searchMovies} />
+      <Button title="Buscar" onPress={() => searchMovies(1)} />
 
-      {loading ? (
-        <ActivityIndicator size="large" color="#0000ff" style={styles.loader} />
-      ) : error ? (
+      {error ? (
         <Text style={styles.errorText}>{error}</Text>
       ) : movies.length > 0 ? (
         <FlatList
           data={movies}
           renderItem={renderMovieItem}
           keyExtractor={(item) => item.id.toString()}
+          onEndReached={handleLoadMore}
+          onEndReachedThreshold={0.5}
+          ListFooterComponent={renderFooter}
         />
       ) : (
         <Text style={styles.noResultsText}>Nenhum filme encontrado.</Text>

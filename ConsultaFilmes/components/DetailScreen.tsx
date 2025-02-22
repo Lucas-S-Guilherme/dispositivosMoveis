@@ -38,6 +38,7 @@ const DetailsScreen: React.FC<Props> = ({ route }) => {
   const { movieId } = route.params;
   const [movie, setMovie] = useState<MovieDetails | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchMovieDetails = async () => {
@@ -53,6 +54,7 @@ const DetailsScreen: React.FC<Props> = ({ route }) => {
         setMovie(response.data);
       } catch (error) {
         console.error(error);
+        setError('Erro ao carregar detalhes do filme.');
       } finally {
         setLoading(false);
       }
@@ -65,8 +67,12 @@ const DetailsScreen: React.FC<Props> = ({ route }) => {
     return <ActivityIndicator size="large" color="#0000ff" style={styles.loader} />;
   }
 
+  if (error) {
+    return <Text style={styles.errorText}>{error}</Text>;
+  }
+
   if (!movie) {
-    return <Text style={styles.errorText}>Erro ao carregar detalhes do filme.</Text>;
+    return <Text style={styles.errorText}>Filme não encontrado.</Text>;
   }
 
   return (
@@ -82,7 +88,9 @@ const DetailsScreen: React.FC<Props> = ({ route }) => {
         <Text style={styles.releaseDate}>{movie.release_date}</Text>
         <Text style={styles.overview}>{movie.overview}</Text>
         <Text style={styles.rating}>Avaliação: {movie.vote_average}</Text>
-        {movie.runtime && <Text style={styles.runtime}>Duração: {movie.runtime} minutos</Text>}
+        {movie.runtime && (
+          <Text style={styles.runtime}>Duração: {movie.runtime} minutos</Text>
+        )}
         {movie.genres && (
           <Text style={styles.genres}>
             Gêneros: {movie.genres.map((genre) => genre.name).join(', ')}
